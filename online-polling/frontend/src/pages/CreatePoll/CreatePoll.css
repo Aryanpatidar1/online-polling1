@@ -1,0 +1,295 @@
+.create-poll-page {
+  padding-top: 50px;
+  padding-bottom: 90px;
+  color: #fff;
+}
+
+
+.create-title {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.create-subtitle {
+  text-align: center;
+  color: #c5c5c5;
+  max-width: 650px;
+  margin: 0 auto 40px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+.create-form {
+  background: #0f0f0f;
+  border: 1px solid #2a2a2a;
+  padding: 40px;
+  border-radius: 18px;
+  width: 90%;
+  max-width: 850px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 25px #00000070;
+}
+
+
+.alert {
+  width: 90%;
+  max-width: 850px;
+  margin: 10px auto;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.alert-error {
+  background: #2e0000;
+  border: 1px solid #ff5b5b;
+  color: #ffb4b4;
+}
+
+.alert-success {
+  background: #012e01;
+  border: 1px solid #35ff6d;
+  color: #baffce;
+}
+
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #eaeaea;
+  font-weight: 500;
+}
+
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.25s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #555;
+}
+
+
+textarea {
+  resize: vertical;
+}
+
+
+.hint {
+  display: block;
+  color: #9f9f9f;
+  margin-top: 6px;
+  font-size: 0.85rem;
+}
+
+
+.options-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.option-row input {
+  flex: 1;
+}
+
+.icon-btn {
+  background: #1a1a1a;
+  border: none;
+  color: #ff6b6b;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  background: #2c2c2c;
+  transform: translateY(-1px);
+}
+
+
+.add-option-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+
+.toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #111;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #2a2a2a;
+}
+
+.toggle-row span {
+  color: #c5c5c5;
+  font-size: 0.95rem;
+}
+
+
+.switch {
+  position: relative;
+  width: 42px;
+  height: 22px;
+}
+
+.switch input {
+  display: none;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background: #333;
+  border-radius: 30px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.3s ease;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: 0.3s ease;
+}
+
+.switch input:checked + .slider {
+  background: #4fff66;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.form-actions button {
+  padding: 12px 26px;
+}
+
+
+.share-box {
+  margin-top: 35px;
+  background: #111;
+  border: 1px solid #333;
+  padding: 18px;
+  border-radius: 14px;
+}
+
+.share-box p {
+  margin-bottom: 10px;
+  color: #d0d0d0;
+  font-size: 0.95rem;
+}
+
+.share-link-row {
+  display: flex;
+  gap: 10px;
+}
+
+.share-link-row input {
+  flex: 1;
+}
+
+.small-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.create-btn{
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+  .create-card {
+    padding: 25px;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .share-link-row {
+    flex-direction: column;
+  }
+
+  .share-link-row button {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .create-card {
+    padding: 25px;
+  }
+
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .share-link-row {
+    flex-direction: column;
+  }
+
+  .share-link-row button {
+    width: 100%;
+  }
+}
+
