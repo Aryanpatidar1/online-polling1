@@ -74,15 +74,15 @@ VITE_SOCKET_URL=http://localhost:3001
 ## 🌐 Production Deployment Guide (Vercel + Render)
 
 ### Backend on Render.com:
-1. Create a Web Service on Render and connect your GitHub repo.
-2. Root Directory: `backend`
-3. Build Command: `npm install`
-4. Start Command: `npm start`
-5. Environment Variables on Render:
-   - `PORT`: `3001`
-   - `MONGO_URI`: Your MongoDB Atlas connection string
-   - `JWT_SECRET`: Any random string
-   - `CLIENT_ORIGIN`: `https://online-polling-system-jade.vercel.app` (or your Vercel URL)
+1. Create a Blueprint on Render and connect this GitHub repo; Render reads
+   `render.yaml` to configure the API service.
+2. Set `MONGO_URI` to the MongoDB Atlas connection string and `AI_API_KEY` to
+   your AI provider key in Render's private environment settings. Do not commit
+   these values or put the AI key in a `VITE_` variable.
+3. After the service is live, set these Vercel project environment variables
+   and redeploy the frontend:
+   - `VITE_API_URL`: `https://<your-render-service>.onrender.com/api`
+   - `VITE_SOCKET_URL`: `https://<your-render-service>.onrender.com`
 
 ### Frontend on Vercel:
 1. In Vercel Project Settings -> **Environment Variables**:
