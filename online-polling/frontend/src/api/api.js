@@ -5,7 +5,7 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// har request ke sath token bhejenge agar present hai
+// Har request ke sath token bhejo agar present hai
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -13,5 +13,20 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+// Response interceptor: Agar token expired ya invalid (401) ho toh auto-logout karo
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Purana expired token aur user data clear karo
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      // Navbar aur baki components ko notify karo
+      window.dispatchEvent(new Event("userLoggedOut"));
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default api;

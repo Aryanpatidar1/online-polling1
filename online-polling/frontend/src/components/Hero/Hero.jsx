@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
 import { ReactTyped } from "react-typed";
-import { FaBolt, FaChartLine, FaLink, FaUserSecret } from "react-icons/fa";
+import { FaBolt, FaChartLine, FaLink, FaUserSecret, FaQrcode, FaWhatsapp } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const Hero = () => {
@@ -76,9 +76,9 @@ const Hero = () => {
           </ul>
 
           <div className="hero-footer">
-            <span><FaUserSecret /> Anonymous Mode</span>
-            <span><FaLink /> Easy Share</span>
-            <span><FaChartLine /> Live Graphs</span>
+            <span><FaQrcode /> QR Scan & Vote</span>
+            <span><FaWhatsapp /> WhatsApp Share</span>
+            <span><FaChartLine /> Realtime Socket.IO</span>
           </div>
         </div>
       </div>

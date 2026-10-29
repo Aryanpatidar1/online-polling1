@@ -3,7 +3,7 @@ import { generateSlug } from '../utils/generateSlug.js'
 
 export const createPoll = async (req ,res) => {
     try {
-        const {question, options, settings} = req.body;
+        const {question, options, settings, category} = req.body;
 
         // validation
         if(!question || !options || question.length<2){
@@ -29,6 +29,7 @@ export const createPoll = async (req ,res) => {
             options: formattedOptions,
             createdBy: req.user.id,
             slug,
+            category: category || "General",
             settings: {
                 allowAnonymous: settings?.allowAnonymous ?? true,
                 maxVotesPerUser: settings?.maxVotesPerUser ?? 1,

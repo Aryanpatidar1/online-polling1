@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { FaPoll, FaPlusCircle, FaUserCircle, FaBars, FaTimes } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
@@ -9,17 +9,39 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  const syncUser = useCallback(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch {
+        setUser(null);
+      }
+    } else {
+      setUser(null);
     }
   }, []);
+
+  useEffect(() => {
+    syncUser();
+
+    // Login/logout aur storage updates listen karo
+    window.addEventListener("userLoggedIn", syncUser);
+    window.addEventListener("userLoggedOut", syncUser);
+    window.addEventListener("storage", syncUser);
+
+    return () => {
+      window.removeEventListener("userLoggedIn", syncUser);
+      window.removeEventListener("userLoggedOut", syncUser);
+      window.removeEventListener("storage", syncUser);
+    };
+  }, [syncUser]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     setUser(null);
+    window.dispatchEvent(new Event("userLoggedOut"));
     navigate("/auth");
     setMenuOpen(false);
   };
@@ -74,7 +96,7 @@ const Navbar = () => {
                 </button>
               </>
             ) : (
-              <NavLink to="/auth" className="nav-profile-btn">
+              <NavLink to="/auth" className="nav-profile-btn" onClick={() => setMenuOpen(false)}>
                 Login / Signup
               </NavLink>
             )}

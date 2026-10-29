@@ -1,38 +1,52 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-import { FaPoll, FaTrash, FaChartBar, FaPlusCircle } from "react-icons/fa";
+import { FaPoll, FaTrash, FaChartBar, FaPlusCircle, FaQrcode } from "react-icons/fa";
 import api from "../../api/api";
 import { Link, Navigate } from "react-router-dom";
+import ShareModal from "../../components/ShareModal/ShareModal";
 
 const Dashboard = () => {
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // 🔐 auth check
-  const user = JSON.parse(localStorage.getItem("user"));
-  const token = localStorage.getItem("token");
+  const [activeSharePoll, setActiveSharePoll] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem("user"));
+    } catch {
+      return null;
+    }
+  });
 
   const fetchMyPolls = async () => {
     try {
       const res = await api.get("/poll/mine");
       setPolls(res.data.polls || []);
-      setLoading(false);
     } catch (err) {
       console.log("Fetch dashboard error:", err);
+      if (err.response?.status === 401) {
+        setCurrentUser(null);
+      }
+    } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (user && token) {
+    const handleLogout = () => setCurrentUser(null);
+    window.addEventListener("userLoggedOut", handleLogout);
+
+    const token = localStorage.getItem("token");
+    if (currentUser && token) {
       fetchMyPolls();
     } else {
       setLoading(false);
     }
+
+    return () => window.removeEventListener("userLoggedOut", handleLogout);
   }, []);
 
   // ❌ NOT LOGGED IN SCREEN
-  if (!user || !token) {
+  if (!currentUser) {
     return (
       <main className="page dashboard-page container">
         <div className="no-polls">
@@ -118,6 +132,13 @@ const Dashboard = () => {
                       <FaChartBar /> View
                     </Link>
                     <button
+                      className="btn small-btn qr-btn"
+                      onClick={() => setActiveSharePoll(poll)}
+                      title="Share & QR Code"
+                    >
+                      <FaQrcode /> QR
+                    </button>
+                    <button
                       className="btn small-btn delete-btn"
                       onClick={() => deleteMyPoll(poll._id)}
                     >
@@ -129,6 +150,16 @@ const Dashboard = () => {
             </tbody>
           </table>
         </div>
+      )}
+
+      {/* SHARE MODAL */}
+      {activeSharePoll && (
+        <ShareModal
+          isOpen={!!activeSharePoll}
+          onClose={() => setActiveSharePoll(null)}
+          pollQuestion={activeSharePoll.question}
+          pollSlug={activeSharePoll.slug}
+        />
       )}
     </main>
   );

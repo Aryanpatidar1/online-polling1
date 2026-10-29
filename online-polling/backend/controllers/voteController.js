@@ -43,11 +43,18 @@ export const castVote = async(req ,res) => {
 
 
         // multiple votes ko prevent karenge
+        let voterQuery;
+        if (user) {
+            voterQuery = { userId: voterId };
+        } else if (anonymousId) {
+            voterQuery = { $or: [{ anonymousId }, { ip }] };
+        } else {
+            voterQuery = { ip };
+        }
+
         const voteCount = await Vote.countDocuments({
             pollId,
-            ...(user
-                ? { userId: voterId }
-                : { anonymousId: anonymousId || ip }),
+            ...voterQuery,
         });
 
         if(voteCount >= poll.settings.maxVotesPerUser){

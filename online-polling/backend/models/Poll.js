@@ -39,6 +39,11 @@ const pollSchema = new mongoose.Schema(
       required: true,
     },
 
+    category: {
+      type: String,
+      default: "General",
+    },
+
     settings: {
       allowAnonymous: { type: Boolean, default: true },
       maxVotesPerUser: { type: Number, default: 1 },
