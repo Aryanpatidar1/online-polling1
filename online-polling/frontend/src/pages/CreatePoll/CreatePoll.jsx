@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./CreatePoll.css";
-import { FaPlus, FaTrashAlt, FaWhatsapp, FaQrcode, FaExternalLinkAlt, FaMagic } from "react-icons/fa";
+import { FaPlus, FaTrashAlt, FaWhatsapp, FaQrcode, FaExternalLinkAlt, FaMagic, FaCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import api from "../../api/api";
 import ShareModal from "../../components/ShareModal/ShareModal";
