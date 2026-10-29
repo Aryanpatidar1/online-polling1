@@ -79,6 +79,8 @@ VITE_SOCKET_URL=http://localhost:3001
 2. Set `MONGO_URI` to the MongoDB Atlas connection string and `AI_API_KEY` to
    your AI provider key in Render's private environment settings. Do not commit
    these values or put the AI key in a `VITE_` variable.
+   The Render Blueprint is configured for Google's OpenAI-compatible Gemini
+   endpoint and `gemini-3.8-flash`.
 3. After the service is live, set these Vercel project environment variables
    and redeploy the frontend:
    - `VITE_API_URL`: `https://<your-render-service>.onrender.com/api`
